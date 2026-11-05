@@ -105,7 +105,7 @@ export default function Home() {
     <main>
       <header className="nav-wrap">
         <nav className="nav container">
-          <a className="brand" href="#home"><span className="brand-mark">A</span><span>ARUNKUMAR<span className="brand-muted">.DEV</span></span></a>
+          <a className="brand" href="#home"><span className="brand-mark">A</span><span>ARUNKUMAR<span className="brand-muted">.P</span></span></a>
           <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
           <div className={`nav-links ${menuOpen ? "open" : ""}`}>
             {nav.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
@@ -194,7 +194,7 @@ export default function Home() {
         <div className="container contact-inner"><div><span className="eyebrow">HAVE A PROJECT IN MIND?</span><h2>Let&apos;s create something<br /><span>meaningful together.</span></h2><p>I&apos;m happy to connect about software engineering, front-end opportunities and interesting product ideas.</p></div><div className="contact-actions"><a className="button primary" href="mailto:greenarun09@gmail.com">Get in touch <ArrowUpRight size={17} /></a><a className="button secondary" href="https://www.linkedin.com/in/greenarun/" target="_blank" rel="noreferrer"><Linkedin size={16} /> Connect on LinkedIn</a><a className="button secondary" href="https://github.com/greenarun" target="_blank" rel="noreferrer"><Github size={16} /> View GitHub</a></div></div>
       </section>
 
-      <footer className="footer container"><a className="brand" href="#home"><span className="brand-mark">A</span><span>ARUNKUMAR<span className="brand-muted">.DEV</span></span></a><p>Designed with curiosity. Built with care.</p><span>© {new Date().getFullYear()} Arunkumar Packirisamy</span></footer>
+      <footer className="footer container"><a className="brand" href="#home"><span className="brand-mark">A</span><span>ARUNKUMAR<span className="brand-muted">.P</span></span></a><p>Designed with curiosity. Built with care.</p><span>© {new Date().getFullYear()} Arunkumar Packirisamy</span></footer>
     </main>
   );
 }

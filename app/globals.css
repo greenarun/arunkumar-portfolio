@@ -152,3 +152,6 @@ html,body{overflow-x:clip}
 @media(max-width:850px){
   .showcase-list,.showcase-preview,.view-more{grid-column:1;grid-row:auto}
 }
+
+/* Mobile/tablet: only the accordion preview shows; hide the side box */
+@media(max-width:850px){.showcase-preview{display:none}}
