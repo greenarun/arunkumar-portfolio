@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowDown, ArrowRight, ArrowUpRight, Code2, Download, Github,
   Linkedin, Mail, Menu, Palette, Sparkles, X, Layers3, BriefcaseBusiness,
   GraduationCap, MapPin, ExternalLink
 } from "lucide-react";
 import { useState } from "react";
+import SelectedWork from "./components/SelectedWork";
 
 const skills = [
   "React.js", "Next.js", "JavaScript", "TypeScript", "Vue.js", "Redux",
@@ -24,75 +25,6 @@ const experience = [
   { company: "Renault Nissan Technology & Business Centre India", role: "Senior Front-End Developer", period: "Jun 2013 – Jan 2016", detail: "Developed and optimized front-end solutions for Renault and Nissan automotive applications, delivering intuitive, high-performance interfaces for vehicle-related systems." },
   { company: "Infosys", role: "Senior Process Executive", period: "Feb 2012 – Jun 2013", detail: "Designed and developed user-centric web interfaces for GlaxoSmithKline, creating visually appealing, functional websites that improved user experience and supported client business goals." }
 ];
-
-type Project = { name: string; symbol: string; type: string; description: string; accent: string; tag: string; brand?: string; logoSrc?: string };
-
-const projects: Project[] = [
-  { name: "DBS – Client Connect", brand: "DBS", symbol: "⌘", type: "Banking · React · Redux · TypeScript", description: "A service-request experience designed to simplify customer and operational workflows.", accent: "from-cyan-400/25 to-blue-500/10", tag: "BANKING" },
-  { name: "Standard Chartered – CREDX", brand: "Standard|Chartered", symbol: "◈", type: "Banking · React · Azure DevOps", description: "Enterprise front-end development for a banking platform, with a focus on reusable UI and reliable delivery.", accent: "from-emerald-400/25 to-teal-500/10", tag: "FINTECH" },
-  { name: "UBS – Financial Instrument Finder", brand: "UBS", symbol: "◎", type: "Wealth Management · React · Redux · TypeScript · Material UI · Jest", description: "A standalone search engine for wealth-management professionals to find financial instruments by keyword, refine results by country, range, date and instrument type, and move selected items into other applications.", accent: "from-sky-400/25 to-indigo-500/10", tag: "WEALTH MGMT" },
-  { name: "UOB – Retail Payment Platform", brand: "UOB", symbol: "◇", type: "Payments · React · Redux · TypeScript · Material UI · Jest · Jenkins", description: "A payment platform for shoppers coming from merchant sites. It connects to UOB's payment gateway to process card and bank payments, then returns customers to the merchant with a clear success, failed, rejected or expired status.", accent: "from-rose-400/25 to-purple-500/10", tag: "PAYMENTS" },
-  { name: "Collect Forever", symbol: "✳", type: "E-commerce · Web application", description: "An online collectibles and comic-book shopping experience.", accent: "from-orange-400/25 to-pink-500/10", tag: "E-COMMERCE" },
-  { name: "Agan FM", symbol: "♫", type: "Personal project · Mobile app", description: "A Tamil-focused radio listening experience bringing online stations and curated audio together.", accent: "from-violet-400/25 to-fuchsia-500/10", tag: "PERSONAL PROJECT" }
-];
-
-function ProjectPreview({ project, index }: { project: (typeof projects)[number]; index: number }) {
-  const stack = project.type.split("·").map((t) => t.trim());
-  return (
-    <div className="preview-card glass">
-      <div className={`project-art preview-art bg-gradient-to-br ${project.accent}`}>
-        <span>{project.tag}</span>
-        {project.logoSrc ? <img className="project-logo-img" src={project.logoSrc} alt="" /> : project.brand ? <div className={`project-brand brand-${project.brand.replace("|", "").toLowerCase()}`}>{project.brand.split("|").map((l, n) => <span key={n}>{l}</span>)}</div> : <div className="project-symbol">{project.symbol}</div>}
-      </div>
-      <div className="project-content">
-        <h3>{project.name}</h3>
-        <div className="preview-stack">{stack.map((t) => <i key={t}>{t}</i>)}</div>
-        <p>{project.description}</p>
-      </div>
-    </div>
-  );
-}
-
-const INITIAL_PROJECTS = 4;
-
-function ProjectShowcase() {
-  const [active, setActive] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? projects : projects.slice(0, INITIAL_PROJECTS);
-  const hiddenCount = projects.length - INITIAL_PROJECTS;
-  return (
-    <div className="showcase">
-      <div className="showcase-left">
-      <ul className="showcase-list">
-        {visible.map((project, i) => (
-          <li key={project.name} className={i === active ? "active" : ""}>
-            <button type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} aria-expanded={i === active}>
-              <em>{String(i + 1).padStart(2, "0")}</em>
-              <span className="showcase-name">{project.name}</span>
-              <small>{project.tag}</small>
-              <ArrowUpRight size={18} className="showcase-arrow" />
-            </button>
-            <div className="showcase-inline"><ProjectPreview project={project} index={i} /></div>
-          </li>
-        ))}
-      </ul>
-      {hiddenCount > 0 && (
-        <button type="button" className="view-more" onClick={() => { setExpanded(!expanded); if (expanded && active >= INITIAL_PROJECTS) setActive(0); }} aria-expanded={expanded}>
-          {expanded ? "Show less" : `View more (${hiddenCount})`}
-          <ArrowRight size={15} className={expanded ? "flip" : ""} />
-        </button>
-      )}
-      </div>
-      <div className="showcase-preview" aria-live="polite">
-        <AnimatePresence mode="wait">
-          <motion.div key={active} initial={{ opacity: 0, y: 14, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .28 }}>
-            <ProjectPreview project={projects[active]} index={active} />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
 
 function SectionTitle({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
   return <div className="section-title"><span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div>;
@@ -177,8 +109,8 @@ export default function Home() {
       </section>
 
       <section id="projects" className="section container">
-        <SectionTitle eyebrow="SELECTED WORK" title="A few things I’ve helped build." text="A mix of enterprise platforms and personal projects. Client work is described at a high level." />
-        <ProjectShowcase />
+        <SectionTitle eyebrow="SELECTED WORK" title="A few things I’ve helped build." text="A collection of enterprise platforms, client projects and personal products I’ve designed and developed." />
+        <SelectedWork />
       </section>
 
       <section id="education" className="section container">
